@@ -1,0 +1,133 @@
+ /* Resetear los márgenes y el relleno por defecto */
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo img {
+    width: 80px;
+    height: auto;
+    margin-left: 20px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin-right: 20px;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+.ola {
+position: relative;
+font-family: Arial, sans-serif;
+background-color: #6D6D6D;
+
+}
+
+.ola2 {
+display: none;
+position: absolute;
+background-color: #ffffff;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.ola:hover .ola2 {
+display: block;
+}
+
+/* Estilos para el resto de tu contenido */
+
+.search-bar {
+display: flex;
+gap: 10px;
+}
+
+.search-bar input[type="text"] {
+padding: 5px;
+border: 1px solid #ccc;
+}
+
+.search-button {
+background-color: #666;
+color: #fff;
+border: none;
+padding: 5px 10px;
+cursor: pointer;
+border-radius: 5px;
+}
+
+/* ... */
+
+.languages {
+max-width: 1200px;
+margin: 20px auto;
+text-align: center;
+}
+
+.language-menu {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 20px;
+}
+
+.language-card {
+background-color: #fff;
+border: 1px solid #ccc;
+padding: 20px;
+text-align: center;
+width: 200px;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.language-card img {
+width: 100px;
+height: 100px;
+object-fit: contain;
+border-radius: 50%;
+margin-bottom: 10px;
+}
+
+.go-button {
+background-color: #333;
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 20px;
+text-decoration: none;
+margin-top: 10px;
+}
