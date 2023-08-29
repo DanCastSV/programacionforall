@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from .models import Post
+from .forms import PostForm
 # Create your views here.
 
 
@@ -36,3 +38,24 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+def foro(request):
+    post = Post.objects.all().order_by('-id')
+
+    return render(request, 'foro.html',{'post':post})
+
+def post_details(request, post_id):
+    post = Post.objects.get(id=post_id)
+
+    return render(request, 'post_details.html', {'post':post})
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('foro')  # Cambia 'inicio' por la URL adecuada
+    else:
+        form = PostForm()
+    return render(request, 'newpost.html', {'form': form})

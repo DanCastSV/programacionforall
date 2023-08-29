@@ -1,0 +1,185 @@
+/* Resetear los estilos por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos globales */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  /* Barra de navegación */
+  .navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 28px;
+  }
+
+  .papu {
+    text-decoration: none;
+    color: #f5f5f5; /* Color de enlace predeterminado */
+    transition: color 0.3s;
+  }
+  
+  .papu:hover {
+    color: #ff9900; /* Cambio de color al pasar el cursor */
+  }
+  
+  .papu:visited {
+    color: #f5f5f5; /* Color de enlace después de visitado */
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+  }
+  
+  .nav-list li {
+    margin-right: 20px;
+  }
+  
+  .nav-list li:last-child {
+    margin-right: 0;
+  }
+  
+  .nav-list a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .nav-list a:hover {
+    color: #ff9900;
+  }
+  
+  /* Menú desplegable de usuario */
+  .user-dropdown {
+    position: relative;
+  }
+  
+  .user-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-dropdown:hover .user-dropdown-content {
+    display: block;
+  }
+  
+  .user-dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+  }
+  
+  .user-dropdown-content a:hover {
+    background-color: #f5f5f5;
+  }
+  
+
+  /* Barra de búsqueda */
+  .header {
+    padding: 20px 40px;
+  }
+  
+  .search-bar {
+    display: flex;
+  }
+  
+  .search-bar input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search-bar button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .search-bar button:hover {
+    background-color: #555;
+  }
+  
+  /* Sección de lenguajes */
+  .languages {
+    padding: 40px;
+  }
+  
+  .languages h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .language-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .language-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    }
+    
+    .language-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    
+    .language-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    }
+    
+    .go-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-top: 10px;
+    }
+    /* Estilos globales */

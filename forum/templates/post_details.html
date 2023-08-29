@@ -1,0 +1,35 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/datos.css'%}"> <!-- Enlaza tu hoja de estilos CSS -->
+  <title>Detalles de la Publicación</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><a href="{%url 'inicio'%}" class="papu">Programación para todos</a></div>
+    <ul class="nav-list">
+      <li><a href="{%url 'foro'%}">Foro</a></li>
+      <li><a href="#">Consultas</a></li>
+      <li class="user-dropdown">
+        <a href="#">{{request.user}}</a>
+        <div class="user-dropdown-content">
+          <a href="#">Menú</a>
+          <a href="#">Configuración</a>
+          <a href="{% url 'logout' %}">Cerrar Sesión</a> <!-- Agrega enlace a cerrar sesión -->
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="post-details">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>{{ post.created_on }}</p>
+  </section>
+
+ 
+</body>
+</html>
