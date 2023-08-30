@@ -28,8 +28,19 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <p>{{ post.created_on }}</p>
-  </section>
+  
+<div>
+  <form method='post'>
+    {% csrf_token %}
+{{form.as_p}}
+<input type="submit" name="enviar" value="comentar">
+  </form>
+  
+{% for comentario in comments %}
 
- 
+<p>{{ comentario.name }} {{comentario.content}}</p>
+{%endfor%}
+</div>
+</section>
 </body>
 </html>

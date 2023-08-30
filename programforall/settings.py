@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'forum',
-    'ckeditor'
+    'forum'
+  
 
 ]
 
@@ -142,17 +142,4 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'inicio/'  # Cambia 'home' al nombre de la vista de inicio
 
 # ...
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ],
-        'height': 300,
-        'width': '100%',
-    },
-}
 

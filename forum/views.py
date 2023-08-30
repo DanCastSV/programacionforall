@@ -4,7 +4,7 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 # Create your views here.
 
 
@@ -48,14 +48,32 @@ def foro(request):
 def post_details(request, post_id):
     post = Post.objects.get(id=post_id)
 
-    return render(request, 'post_details.html', {'post':post})
+    comments = post.comments.filter(active=True)
+
+    # Inicializa el formulario fuera de la declaración if
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            nuevo_comentario = form.save(commit=False)
+            nuevo_comentario.post = post
+            nuevo_comentario.save()
+
+    return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
+
+
 
 def create_post(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('foro')  # Cambia 'inicio' por la URL adecuada
+            post = Post(title=form.cleaned_data["title"], slug=form.cleaned_data["slug"], content=form.cleaned_data["content"])
+            post.save()
+            return redirect("foro/")
     else:
         form = PostForm()
-    return render(request, 'newpost.html', {'form': form})
+        print("papi algo esta fallando")  # Esto se mostrará en la consola del servidor
+
+    return render(request, "newpost.html", {"form": form})
+ 
