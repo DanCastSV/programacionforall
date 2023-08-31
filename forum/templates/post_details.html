@@ -1,24 +1,25 @@
-{%load static%}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/datos.css'%}"> <!-- Enlaza tu hoja de estilos CSS -->
+  <link rel="stylesheet" href="{% static 'css/datos.css' %}">
   <title>Detalles de la Publicación</title>
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo"><a href="{%url 'inicio'%}" class="papu">Programación para todos</a></div>
+    <div class="logo"><a href="{% url 'inicio' %}" class="papu">Programación para todos</a></div>
     <ul class="nav-list">
-      <li><a href="{%url 'foro'%}">Foro</a></li>
+      <li><a href="{% url 'foro' %}">Foro</a></li>
       <li><a href="#">Consultas</a></li>
       <li class="user-dropdown">
-        <a href="#">{{request.user}}</a>
+        <a href="#">{{ request.user }}</a>
         <div class="user-dropdown-content">
           <a href="#">Menú</a>
           <a href="#">Configuración</a>
-          <a href="{% url 'logout' %}">Cerrar Sesión</a> <!-- Agrega enlace a cerrar sesión -->
+          <a href="{% url 'logout' %}">Cerrar Sesión</a>
         </div>
       </li>
     </ul>
@@ -28,19 +29,36 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <p>{{ post.created_on }}</p>
-  
-<div>
-  <form method='post'>
-    {% csrf_token %}
-{{form.as_p}}
-<input type="submit" name="enviar" value="comentar">
-  </form>
-  
-{% for comentario in comments %}
+    <form method="post" action="{% url 'like_post' post.id %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+    </form>
+    <p>Likes: {{ post.likes }}</p>
+  </section>
 
-<p>{{ comentario.name }} {{comentario.content}}</p>
-{%endfor%}
-</div>
-</section>
+  <div class="comment-form">
+    <h2>Deja un comentario</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.content.label_tag }} {{ form.content }}
+      <button type="submit">Enviar comentario</button>
+    </form>
+  </div>
+
+  <div class="comments">
+    <h2>Comentarios</h2>
+    <ul>
+      {% for comment in comments %}
+        <li>
+          <p>Por: {{ comment.user }}</p>
+          <p>{{ comment.content }}</p>
+         
+          <p>Realizado: {{ comment.created_on }}</p>
+        </li>
+      {% empty %}
+        <p>No hay comentarios aún.</p>
+      {% endfor %}
+    </ul>
+  </div>
 </body>
 </html>

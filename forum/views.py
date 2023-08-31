@@ -4,12 +4,13 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, CustomPostForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 # Create your views here.
 
 
-def index(request):
-    return render(request, "index.html")
+
 
 
 def login_view(request):
@@ -39,41 +40,63 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+@login_required
 
+def index(request):
+
+    return render(request, "index.html")
+
+@login_required
 def foro(request):
-    post = Post.objects.all().order_by('-id')
+    #muestra los post del foro 
+    post = Post.objects.all().order_by('-id')#hace que el post se muestre de manera ordenada 
 
     return render(request, 'foro.html',{'post':post})
+@login_required
 
 def post_details(request, post_id):
-    post = Post.objects.get(id=post_id)
-
-    comments = post.comments.filter(active=True)
-
-    # Inicializa el formulario fuera de la declaración if
-    form = CommentForm()
+    post = get_object_or_404(Post, id=post_id)
+    comments = post.comments.filter()
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            nuevo_comentario = form.save(commit=False)
-            nuevo_comentario.post = post
-            nuevo_comentario.save()
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.user = request.user
+            new_comment.save()
+            form = CommentForm()  # Limpiar el formulario después de enviar
+
+    else:
+        form = CommentForm()
 
     return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
 
 
 
+
+@login_required
 def create_post(request):
-    if request.method == "POST":
+   #se hace la vista que crea los post
+   if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             post = Post(title=form.cleaned_data["title"], slug=form.cleaned_data["slug"], content=form.cleaned_data["content"])
             post.save()
             return redirect("foro/")
-    else:
+   else:
         form = PostForm()
         print("papi algo esta fallando")  # Esto se mostrará en la consola del servidor
 
-    return render(request, "newpost.html", {"form": form})
- 
+        return render(request, "newpost.html", {"form": form})
+   
+@login_required
+def like_post(request, post_id):
+    # Obtén la publicación por su ID
+    post = Post.objects.get(pk=post_id)
+
+    # Incrementa el contador de likes
+    post.likes += 1
+    post.save()
+
+    return redirect('post_details', post_id=post_id)
