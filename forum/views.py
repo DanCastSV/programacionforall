@@ -65,7 +65,7 @@ def post_details(request, post_id):
             new_comment.post = post
             new_comment.user = request.user
             new_comment.save()
-            form = CommentForm()  # Limpiar el formulario después de enviar
+            return redirect('post_details', post_id=post_id)
 
     else:
         form = CommentForm()
@@ -77,18 +77,15 @@ def post_details(request, post_id):
 
 @login_required
 def create_post(request):
-   #se hace la vista que crea los post
-   if request.method == "POST":
+    if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = Post(title=form.cleaned_data["title"], slug=form.cleaned_data["slug"], content=form.cleaned_data["content"])
-            post.save()
-            return redirect("foro/")
-   else:
+            post = form.save()
+            return redirect("foro/")  # Redirigir a donde corresponda después del éxito
+    else:
         form = PostForm()
-        print("papi algo esta fallando")  # Esto se mostrará en la consola del servidor
-
-        return render(request, "newpost.html", {"form": form})
+    
+    return render(request, "newpost.html", {"form": form})
    
 @login_required
 def like_post(request, post_id):

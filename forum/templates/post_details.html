@@ -41,6 +41,10 @@
     <form method="post">
       {% csrf_token %}
       {{ form.content.label_tag }} {{ form.content }}
+
+      {% if form.content.errors %}
+      <p class="error">{{ form.content.errors }}</p>
+      {% endif %}
       <button type="submit">Enviar comentario</button>
     </form>
   </div>
@@ -52,7 +56,6 @@
         <li>
           <p>Por: {{ comment.user }}</p>
           <p>{{ comment.content }}</p>
-         
           <p>Realizado: {{ comment.created_on }}</p>
         </li>
       {% empty %}

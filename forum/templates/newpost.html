@@ -35,21 +35,31 @@
     <h2>Crear Nueva Publicación</h2>
     <form method="post">
       {% csrf_token %}
-      <div class="input-wrapper">
-        <label for="{{ form.title.id_for_label }}">Título:</label>
-        {{ form.title }}
-      </div>
-      <div class="input-wrapper">
-        
-        {{ form.slug }}
-      </div>
-      <!-- Editor de texto -->
-      <div class="input-wrapper">
-        <label for="editordata">Contenido:</label>
-        {{ form.content }}
-      </div>
-      <button type="submit">Guardar Publicación</button>
-    </form>
+      {{ form.title.label_tag }}<br>
+      {{ form.title }}<br>
+      {% if form.title.errors %}
+          <ul class="errorlist">
+              {% for error in form.title.errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+  
+      {{ form.content.label_tag }}<br>
+      {{ form.content }}<br>
+      {% if form.content.errors %}
+          <ul class="errorlist">
+              {% for error in form.content.errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+  
+      {{ form.slug }}  <!-- Slug es un campo oculto -->
+  
+      <button type="submit">Crear Post</button>
+  </form>
+  
   </div>
 
   <script>
