@@ -55,22 +55,27 @@ def foro(request):
 @login_required
 
 def post_details(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    comments = post.comments.filter()
+   #Muestra detalles del post
+    try:
+        post = get_object_or_404(Post, id=post_id)
+        comments = post.comments.filter()
 
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.user = request.user
-            new_comment.save()
-            return redirect('post_details', post_id=post_id)
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.post = post
+                new_comment.user = request.user
+                new_comment.save()
+                return redirect('post_details', post_id=post_id)
 
-    else:
-        form = CommentForm()
+        else:
+            form = CommentForm()
 
-    return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
+        return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
+    
+    except:
+        return render(request, '404.html')
 
 
 
@@ -86,6 +91,7 @@ def create_post(request):
         form = PostForm()
     
     return render(request, "newpost.html", {"form": form})
+    
    
 @login_required
 def like_post(request, post_id):

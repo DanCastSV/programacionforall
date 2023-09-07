@@ -1,12 +1,14 @@
 from django import forms
-
+from ckeditor.widgets import CKEditorWidget 
 from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
-    #se hace el formulario para el post 
+   # Define el formulario para el post
     title = forms.CharField(max_length=100)
-    slug = forms.SlugField(widget=forms.HiddenInput())  # Ocultamos el campo slug
-    content = forms.CharField()
+    slug = forms.SlugField(widget=forms.HiddenInput())  # Oculta el campo slug
+
+    # Utiliza CKEditorWidget para el campo content
+    content = forms.CharField(widget=CKEditorWidget())
 
     def clean_title(self):
         title = self.cleaned_data['title']

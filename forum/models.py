@@ -1,13 +1,15 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
     created_on = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
+    #content = models.TextField()
+    content = RichTextField()
     likes = models.PositiveIntegerField(default=0)  # Agrega el campo likes
 
     def __str__(self):

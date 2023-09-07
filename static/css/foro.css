@@ -102,6 +102,13 @@
 /* ... Código CSS existente ... */
 
 /* Botón */
+
+
+
+
+.content{
+  text-align: center;
+}
 .button {
   display: inline-block;
   background-color: #333;
