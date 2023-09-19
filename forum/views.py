@@ -54,10 +54,9 @@ def foro(request):
     return render(request, 'foro.html',{'post':post})
 @login_required
 
-def post_details(request, post_id):
-   #Muestra detalles del post
+def post_details(request, pk):
     try:
-        post = get_object_or_404(Post, id=post_id)
+        post = get_object_or_404(Post, pk=pk)
         comments = post.comments.filter()
 
         if request.method == 'POST':
@@ -67,7 +66,7 @@ def post_details(request, post_id):
                 new_comment.post = post
                 new_comment.user = request.user
                 new_comment.save()
-                return redirect('post_details', post_id=post_id)
+                return redirect('post_detail', pk=pk)
 
         else:
             form = CommentForm()
@@ -82,15 +81,18 @@ def post_details(request, post_id):
 
 @login_required
 def create_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
-            return redirect("foro/")  # Redirigir a donde corresponda después del éxito
+            # Guarda el formulario solo si es válido
+            post = form.save(commit=False)
+            post.author = request.user  # Asigna el autor del post
+            post.save()
+            return redirect('post_details', pk=post.pk)
     else:
-        form = PostForm()
-    
-    return render(request, "newpost.html", {"form": form})
+        form = PostForm()  # Crea una instancia del formulario vacío
+
+    return render(request, 'newpost.html', {'form': form})
     
    
 @login_required

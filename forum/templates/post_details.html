@@ -26,15 +26,18 @@
   </nav>
 
   <section class="post-details">
+    <p>pubblicado por: {{ post.author}} </p>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content | safe }}</p>
+    <img src="{{ post.image_url }}" alt="">
     <p>{{ post.created_on|date:"d M Y" }}</p>
+   
     <form method="post" action="{% url 'like_post' post.id %}">
         {% csrf_token %}
         <button type="submit">Like</button>
     </form>
     <p>Likes: {{ post.likes }}</p>
-  </section>
+</section>
 
   <div class="comment-form">
     <h2>Deja un comentario</h2>

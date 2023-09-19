@@ -11,6 +11,9 @@ class Post(models.Model):
     #content = models.TextField()
     content = RichTextField()
     likes = models.PositiveIntegerField(default=0)  # Agrega el campo likes
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)  # Campo de imagen opcional
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts', default=None)
+
 
     def __str__(self):
         return self.title
