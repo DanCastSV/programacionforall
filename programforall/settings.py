@@ -144,3 +144,5 @@ LOGIN_REDIRECT_URL = 'inicio/'  # Cambia 'home' al nombre de la vista de inicio
 
 # ...
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media-files/'

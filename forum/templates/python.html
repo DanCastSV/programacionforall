@@ -1,0 +1,156 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/python.css' %}">
+  <title>Publicaciones</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><a href="{%url 'inicio'%}" class="papu">Programación para todos</a></div>
+    <ul class="nav-list">
+      <li><a href="{%url 'foro'%}">Foro</a></li>
+      <li><a href="#">Consultas</a></li>
+      <li class="user-dropdown">
+        <a href="#">{{request.user}}</a>
+        <div class="user-dropdown-content">
+          <a href="#">Menú</a>
+          <a href="#">Configuración</a>
+          <a href="{% url 'logout' %}">Cerrar Sesión</a> <!-- Agrega enlace a cerrar sesión -->
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+
+  <h1>Introducción a Python</h1>
+
+  <!-- Dropdown para "Hola, Mundo" en Python -->
+  <div class="dropdown">
+      <button>1. "Hola, Mundo" en Python</button>
+      <div class="dropdown-content">
+          <p>En Python, el "Hola, Mundo" es el programa más simple que puedes escribir. Utiliza la función <code>print</code> para mostrar un mensaje en la consola.</p>
+          <pre><code>print("Hola, Mundo")</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Variables y Tipos de Datos" -->
+  <div class="dropdown">
+      <button>2. Variables y Tipos de Datos</button>
+      <div class="dropdown-content">
+          <p>En Python, puedes declarar variables sin necesidad de especificar su tipo. Los tipos de datos más comunes incluyen:</p>
+          <ul>
+              <li>Enteros (int): Números enteros.</li>
+              <li>Cadenas de texto (str): Secuencias de caracteres entre comillas.</li>
+              <li>Flotantes (float): Números con decimales.</li>
+          </ul>
+          <pre><code>nombre = "Juan"
+edad = 25
+puntos = 10.5</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Operadores" -->
+  <div class="dropdown">
+      <button>3. Operadores</button>
+      <div class="dropdown-content">
+          <p>Python ofrece una variedad de operadores, como:</p>
+          <ul>
+              <li>Operadores aritméticos (+, -, *, /): Para realizar operaciones matemáticas.</li>
+              <li>Operadores de comparación (==, !=, >, <): Para comparar valores.</li>
+              <li>Operadores lógicos (and, or, not): Para evaluar expresiones booleanas.</li>
+          </ul>
+          <pre><code>a = 5
+b = 3
+suma = a + b
+es_mayor = a > b</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Estructuras de Control" -->
+  <div class="dropdown">
+      <button>4. Estructuras de Control</button>
+      <div class="dropdown-content">
+          <p>Las estructuras de control permiten tomar decisiones y repetir acciones. Las más comunes son:</p>
+          <ul>
+              <li>Condicionales (if-elif-else): Ejecutan código según una condición.</li>
+              <li>Bucles (for y while): Repiten un bloque de código.</li>
+          </ul>
+          <pre><code>if edad >= 18:
+  print("Eres mayor de edad")
+else:
+  print("Eres menor de edad")</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Listas y Tuplas" -->
+  <div class="dropdown">
+      <button>5. Listas y Tuplas</button>
+      <div class="dropdown-content">
+          <p>Listas (list) y tuplas (tuple) son colecciones ordenadas de elementos. Las listas son mutables (puedes modificarlas), mientras que las tuplas son inmutables (no puedes cambiar su contenido).</p>
+          <pre><code>frutas = ["manzana", "banana", "naranja"]
+coordenadas = (3, 4)</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Diccionarios" -->
+  <div class="dropdown">
+      <button>6. Diccionarios</button>
+      <div class="dropdown-content">
+          <p>Los diccionarios (dict) almacenan datos en pares clave-valor. Puedes acceder a los valores utilizando las claves.</p>
+          <pre><code>persona = {"nombre": "Ana", "edad": 30}
+print(persona["nombre"])</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Funciones" -->
+  <div class="dropdown">
+      <button>7. Funciones</button>
+      <div class="dropdown-content">
+          <p>Las funciones te permiten definir bloques de código reutilizables. Puedes pasar argumentos a una función y obtener un valor de retorno.</p>
+          <pre><code>def saludar(nombre):
+  print("Hola, " + nombre)
+
+saludar("Carlos")</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Módulos y Bibliotecas" -->
+  <div class="dropdown">
+      <button>8. Módulos y Bibliotecas</button>
+      <div class="dropdown-content">
+          <p>Los módulos y bibliotecas son archivos que contienen funciones y variables que puedes usar en tus programas. Puedes importarlos con <code>import</code> para extender las capacidades de Python.</p>
+          <pre><code>import math
+print(math.sqrt(25))</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Excepciones" -->
+  <div class="dropdown">
+      <button>9. Excepciones</button>
+      <div class="dropdown-content">
+          <p>Las excepciones permiten manejar errores de manera controlada. Puedes usar <code>try</code> y <code>except</code> para manejar excepciones y tomar medidas adecuadas cuando ocurren errores.</p>
+          <pre><code>try:
+  resultado = 10 / 0
+except ZeroDivisionError:
+  print("Error: División por cero")</code></pre>
+      </div>
+  </div>
+
+  <!-- Dropdown para "Programación Orientada a Objetos (POO)" -->
+  <div class="dropdown">
+      <button>10. Programación Orientada a Objetos (POO)</button>
+      <div class="dropdown-content">
+          <p>En POO, puedes definir clases que actúan como plantillas para crear objetos. Los objetos tienen atributos y métodos asociados.</p>
+          <pre><code>class Coche:
+  def __init__(self, marca, modelo):
+      self.marca = marca
+      self.modelo = modelo
+
+mi_coche = Coche("Toyota", "Corolla")</code></pre>
+      </div>
+  </div>
+</body>
+</html>

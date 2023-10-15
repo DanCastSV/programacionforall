@@ -12,7 +12,7 @@ class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     slug = forms.SlugField(widget=forms.HiddenInput())
     content = forms.CharField(widget=CKEditorWidget())
-    image = forms.ImageField(required=False)  # Campo de imagen opcional
+    image = forms.ImageField(label= "avatar",required=False,widget=forms.FileInput(attrs={'class':'form-control'}))  # Campo de imagen opcional
 
     def clean_title(self):
         title = self.cleaned_data['title']

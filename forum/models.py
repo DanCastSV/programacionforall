@@ -8,11 +8,16 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
     created_on = models.DateTimeField(auto_now_add=True)
-    #content = models.TextField()
     content = RichTextField()
     likes = models.PositiveIntegerField(default=0)  # Agrega el campo likes
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)  # Campo de imagen opcional
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts', default=None)
+    image = models.ImageField(upload_to='imagenes', null=True, blank=True)  # Campo de imagen opcional
+    likes = models.ManyToManyField(User, related_name='liked_posts')
+
+    def like(self, user):
+        self.likes.add(user)
+
+    def unlike(self, user):
+        self.likes.remove(user)
 
 
     def __str__(self):

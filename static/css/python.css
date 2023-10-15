@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+  
+  /* Barra de navegación */
+  .navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo a {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-list li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .user-dropdown {
+    position: relative;
+  }
+  
+  .user-dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    top: 100%;
+    right: 0;
+    display: none;
+  }
+  
+  .user-dropdown:hover .user-dropdown-content {
+    display: block;
+  }
+  
+  .user-dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los dropdowns */
+.dropdown {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #fff;
+    padding: 10px 20px;
+}
+
+.dropdown:hover {
+    background-color: #f9f9f9;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Estilo para el contenido dentro de los dropdowns */
+.dropdown-content p {
+    font-size: 16px;
+    color: #333;
+}
+
+.dropdown-content pre {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Estilo para los enlaces dentro de los dropdowns */
+.dropdown-content a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.dropdown-content a:hover {
+    text-decoration: underline;
+}

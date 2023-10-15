@@ -47,29 +47,37 @@ def index(request):
     return render(request, "index.html")
 
 @login_required
+def pythonpost(request):
+    return render(request, "python.html")
+
+@login_required
 def foro(request):
     #muestra los post del foro 
     post = Post.objects.all().order_by('-id')#hace que el post se muestre de manera ordenada 
 
     return render(request, 'foro.html',{'post':post})
-@login_required
 
+@login_required
 def post_details(request, pk):
     try:
         post = get_object_or_404(Post, pk=pk)
         comments = post.comments.filter()
 
         if request.method == 'POST':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                new_comment = form.save(commit=False)
-                new_comment.post = post
-                new_comment.user = request.user
-                new_comment.save()
-                return redirect('post_detail', pk=pk)
+            action = request.POST.get('action')
+            if action == 'like':
+                post.like(request.user)
+            elif action == 'unlike':
+                post.unlike(request.user)
+            elif action == 'comment':
+                form = CommentForm(request.POST)
+                if form.is_valid():
+                    new_comment = form.save(commit=False)
+                    new_comment.post = post
+                    new_comment.user = request.user
+                    new_comment.save()
 
-        else:
-            form = CommentForm()
+        form = CommentForm()
 
         return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
     
@@ -93,15 +101,23 @@ def create_post(request):
         form = PostForm()  # Crea una instancia del formulario vacío
 
     return render(request, 'newpost.html', {'form': form})
-    
-   
+
+
 @login_required
 def like_post(request, post_id):
-    # Obtén la publicación por su ID
-    post = Post.objects.get(pk=post_id)
+    try:
+        # Obtén la publicación por su ID
+        post = Post.objects.get(pk=post_id)
 
-    # Incrementa el contador de likes
-    post.likes += 1
-    post.save()
+        # Incrementa el contador de likes
+        post.likes += 1
+        post.save()
 
-    return redirect('post_details', post_id=post_id)
+        return redirect('post_details', pk=post_id)
+
+    except Post.DoesNotExist:
+        # Manejar el caso en el que no se encuentra la publicación
+        # Puedes redirigir a una página de error o realizar alguna otra acción adecuada
+        pass
+    
+   
