@@ -9,7 +9,6 @@ class Post(models.Model):
     slug = models.SlugField()
     created_on = models.DateTimeField(auto_now_add=True)
     content = RichTextField()
-    likes = models.PositiveIntegerField(default=0)  # Agrega el campo likes
     image = models.ImageField(upload_to='imagenes', null=True, blank=True)  # Campo de imagen opcional
     likes = models.ManyToManyField(User, related_name='liked_posts')
 

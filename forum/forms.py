@@ -2,11 +2,6 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget 
 from .models import Post, Comment
 
-class PostForm(forms.ModelForm):
-   # Define el formulario para el post
-   from django import forms
-from ckeditor.widgets import CKEditorWidget
-from .models import Post
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=100)

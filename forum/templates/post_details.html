@@ -25,11 +25,18 @@
     </ul>
   </nav>
   <section class="post-details">
-    <p>pubblicado por: {{ post.author}} </p>
+    
     <h1>{{ post.title }}</h1>
     <p>{{ post.content | safe }}</p>
     
-    <img src="{{ post.image.url }}" alt="" width="200">
+    {% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" width="200">
+{% else %}
+    <!-- Opción 1: Mostrar nada -->
+    
+{% endif %}
+
+
     <p>{{ post.created_on|date:"d M Y" }}</p>
 
     <form method="post">
@@ -46,13 +53,18 @@
     <h2>Deja un comentario</h2>
     <form method="post">
       {% csrf_token %}
+      
       {{ form.content.label_tag }} {{ form.content }}
-
+      
       {% if form.content.errors %}
       <p class="error">{{ form.content.errors }}</p>
       {% endif %}
+      
+      <!-- Campo oculto para identificar la acción de enviar un comentario -->
+      <input type="hidden" name="action" value="comment">
+      
       <button type="submit">Enviar comentario</button>
-    </form>
+  </form>
   </div>
 
   <div class="comments">

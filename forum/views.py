@@ -7,6 +7,7 @@ from .models import Post
 from .forms import PostForm, CommentForm, CustomPostForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.db.models import Q
 # Create your views here.
 
 
@@ -47,6 +48,19 @@ def index(request):
     return render(request, "index.html")
 
 @login_required
+def search_results(request):
+    query = request.GET.get('query')
+    if query:
+        posts = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    else:
+        posts = Post.objects.none()
+    
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'search_results.html', context)
+
+@login_required
 def pythonpost(request):
     return render(request, "python.html")
 
@@ -59,30 +73,38 @@ def foro(request):
 
 @login_required
 def post_details(request, pk):
-    try:
-        post = get_object_or_404(Post, pk=pk)
-        comments = post.comments.filter()
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all()
 
-        if request.method == 'POST':
-            action = request.POST.get('action')
-            if action == 'like':
-                post.like(request.user)
-            elif action == 'unlike':
-                post.unlike(request.user)
-            elif action == 'comment':
-                form = CommentForm(request.POST)
-                if form.is_valid():
-                    new_comment = form.save(commit=False)
-                    new_comment.post = post
-                    new_comment.user = request.user
-                    new_comment.save()
+    form = CommentForm()
 
-        form = CommentForm()
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        
+        if action == 'like':
+            if request.user not in post.likes.all():
+                post.likes.add(request.user)
+                
+        elif action == 'unlike':
+            if request.user in post.likes.all():
+                post.likes.remove(request.user)
+                
+        elif action == 'comment':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.post = post
+                new_comment.user = request.user
+                new_comment.save()
+            else:
+           
+                print(form.errors)
+                # Esto mostrará errores de validación en tu plantilla
+                return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
 
-        return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
-    
-    except:
-        return render(request, '404.html')
+    return render(request, 'post_details.html', {'post': post, 'comments': comments, 'form': form})
+
+
 
 
 
