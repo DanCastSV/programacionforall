@@ -4,6 +4,12 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
@@ -11,6 +17,7 @@ class Post(models.Model):
     content = RichTextField()
     image = models.ImageField(upload_to='imagenes', null=True, blank=True)  # Campo de imagen opcional
     likes = models.ManyToManyField(User, related_name='liked_posts')
+    tags = models.ManyToManyField(Tag, related_name='posts')
 
     def like(self, user):
         self.likes.add(user)
@@ -47,4 +54,6 @@ class PostLike(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+
+
 

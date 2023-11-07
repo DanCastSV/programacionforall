@@ -4,7 +4,7 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
-from .forms import PostForm, CommentForm, CustomPostForm
+from .forms import PostForm, CommentForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Q
@@ -26,16 +26,16 @@ def login_view(request):
             # Mostrar un mensaje de error
             pass
     return render(request, 'login.html')
-
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
@@ -114,13 +114,13 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            # Guarda el formulario solo si es válido
             post = form.save(commit=False)
-            post.author = request.user  # Asigna el autor del post
+            post.author = request.user
             post.save()
+            form.save_m2m()  # Guarda las relaciones de many-to-many, como las etiquetas
             return redirect('post_details', pk=post.pk)
     else:
-        form = PostForm()  # Crea una instancia del formulario vacío
+        form = PostForm()
 
     return render(request, 'newpost.html', {'form': form})
 
@@ -142,4 +142,24 @@ def like_post(request, post_id):
         # Puedes redirigir a una página de error o realizar alguna otra acción adecuada
         pass
     
-   
+@login_required
+
+def advanced_search(request):
+    query = request.GET.get('q', '')
+    tag_query = request.GET.getlist('tags')
+    posts = Post.objects.all()
+
+    if query:
+        posts = posts.filter(title__icontains=query)
+
+    if tag_query:
+        posts = posts.filter(tags__name__in=tag_query).distinct()
+
+    context = {
+        'posts': posts,
+        'query': query,
+        'selected_tags': tag_query,
+        'tags': Tag.objects.all(),
+    }
+
+    return render(request, 'advanced_search_results.html', context)

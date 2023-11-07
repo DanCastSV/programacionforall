@@ -36,6 +36,15 @@
     
 {% endif %}
 
+<div class="post-tags">
+  <h3>Etiquetas:</h3>
+  {% for tag in post.tags.all %}
+    <span class="post-tag">{{ tag.name }}</span>
+  {% empty %}
+    <span>No hay etiquetas.</span>
+  {% endfor %}
+</div>
+
 
     <p>{{ post.created_on|date:"d M Y" }}</p>
 

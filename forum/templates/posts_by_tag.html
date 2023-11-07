@@ -1,11 +1,12 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/busqueda.css' %}">
-  <title>Publicaciones</title>
+  <title>Publicaciones con etiqueta {{ tag.name }}</title>
 </head>
 <body>
   <nav class="navbar">
@@ -25,16 +26,14 @@
   </nav>
 
   <div class="content">
-    <h1 class="hxd">Bienvenido</h1>
+    <h1 class="hxd">Publicaciones con etiqueta "{{ tag.name }}"</h1>
     <br>
-    <a href="{% url 'create_post' %}" class="button">Crear Post</a>
+    <a href="{% url 'create_post' %}" class="button">Crear post</a>
+  </div>
 
- 
-    <!-- Fin del formulario de búsqueda -->
-
-    <h1>Resultados de búsqueda</h1>
-    {% if posts %}
-      <ul>
+  {% if posts %}
+    <h1>Resultados:</h1>
+    <ul>
       {% for post in posts %}
         <li>
           <div class="post-container">
@@ -42,11 +41,9 @@
           </div>
         </li>
       {% endfor %}
-      </ul>
-    {% else %}
-      <p>No se encontraron resultados para "{{ query }}".</p>
-    {% endif %}
-  </div>
-
+    </ul>
+  {% else %}
+    <p>No hay publicaciones con la etiqueta "{{ tag.name }}".</p>
+  {% endif %}
 </body>
 </html>

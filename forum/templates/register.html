@@ -99,6 +99,11 @@ a {
     display: block;
     margin-top: 10px;
 }
+.password-criteria {
+    display: none;
+    color: red;
+    font-size: 0.8em;
+}
 
     </style>
 </head>
@@ -110,28 +115,108 @@ a {
             <li><a href="register/">Registrarse</a></li>
         </ul>
     </nav>
-
     <div class="content">
         <h1>Registrar Usuario</h1>
         <div class="container">
-            <form method="post" action="/register/">
+            <form method="post" action="/register/" id="registerForm">
                 {% csrf_token %}
+                {{ form.non_field_errors }}
+
                 <div class="form-group">
-                    <label for="username">Nombre de Usuario</label>
-                    {{form.username}}
+                    <label for="id_username">Nombre de Usuario</label>
+                    {{ form.username }}
                 </div>
-                <div class="form-group">
-                    <label for="password1">Contraseña</label>
-                    {{form.password1}}
-                </div>
-                <div class="form-group">
-                    <label for="password2">Confirmar Contraseña</label>
-                    {{form.password2}}
-                </div>
-                <button class="btn btn-outline-success">Crear Cuenta</button>
-            </form>
-            <a href="/">¿Ya tienes una cuenta? Ingresa</a>
+
+               
+    <div class="form-group">
+        <label for="password1">Contraseña</label>
+        <input type="password" id="password1" name="password1" required>
+        <br>
+        <span id="togglePassword" style="cursor: pointer;">🧐 Ver contraseña</span>
+        <br>
+        <ul id="passwordCriteria">
+            <p id="minChar">Al menos 8 caracteres</li>
+            <p id="upperCase">Al menos una letra mayúscula</li>
+            <p id="lowerCase">Al menos una letra</li>
+            <p id="number">Al menos un número</li>
+            <p id="specialChar">Al menos un carácter especial</li>
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <label for="password2">Confirmar Contraseña</label>
+        <input type="password" id="password2" name="password2" required>
+    </div>
+
+    <button class="btn btn-outline-success">Crear Cuenta</button>
+</form>
         </div>
     </div>
-</body>
+
+ 
+</body><script>
+    document.getElementById('togglePassword').addEventListener('click', function(e) {
+        var passwordInput = document.getElementById('password1');
+        var passwordIcon = document.getElementById('togglePassword');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.textContent = '🙈 Ocultar contraseña'; // Cambia al icono de "ojo cerrado" si lo prefieres
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.textContent = '🧐 Ver contraseña'; // Icono de "ojo abierto"
+        }
+    });
+    
+    document.getElementById('password1').onkeyup = function() {
+        // Valida la longitud de la contraseña
+        if(document.getElementById('password1').value.length >= 8) {
+            document.getElementById('minChar').style.color = 'green';
+        } else {
+            document.getElementById('minChar').style.color = 'red';
+        }
+    
+        // Valida la presencia de una letra mayúscula
+        if(document.getElementById('password1').value.match(/[A-Z]/)) {
+            document.getElementById('upperCase').style.color = 'green';
+        } else {
+            document.getElementById('upperCase').style.color = 'red';
+        }
+    
+        // Valida la presencia de una letra minúscula
+        if(document.getElementById('password1').value.match(/[a-z]/)) {
+            document.getElementById('lowerCase').style.color = 'green';
+        } else {
+            document.getElementById('lowerCase').style.color = 'red';
+        }
+    
+        // Valida la presencia de un número
+        if(document.getElementById('password1').value.match(/[0-9]/)) {
+            document.getElementById('number').style.color = 'green';
+        } else {
+            document.getElementById('number').style.color = 'red';
+        }
+    
+        // Valida la presencia de un carácter especial
+        if(document.getElementById('password1').value.match(/[\W_]/)) {
+            document.getElementById('specialChar').style.color = 'green';
+        } else {
+            document.getElementById('specialChar').style.color = 'red';
+        }
+    };
+    
+    document.getElementById('registerForm').onsubmit = function(e) {
+        var password1 = document.getElementById('password1').value;
+        var password2 = document.getElementById('password2').value;
+    
+        // Comprueba si las contraseñas coinciden y cumplen con los criterios antes de enviar el formulario
+        if(password1 !== password2) {
+            alert('Las contraseñas no coinciden.');
+            e.preventDefault();
+        } else if(password1.length < 8 || !password1.match(/[A-Z]/) || !password1.match(/[a-z]/) || !password1.match(/[0-9]/) || !password1.match(/[\W_]/)) {
+            alert('La contraseña no cumple con los criterios requeridos.');
+            e.preventDefault();
+        }
+    };
+    </script>
+    
 </html>

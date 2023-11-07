@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/advanced_search.css' %}">
+    <title>Búsqueda Avanzada - Publicaciones</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a href="{% url 'inicio' %}" class="papu">Programación para todos</a></div>
+    <ul class="nav-list">
+      <li><a href="{% url 'foro' %}">Foro</a></li>
+      <li><a href="#">Consultas</a></li>
+      <li class="user-dropdown">
+        <a href="#">{{ request.user }}</a>
+        <div class="user-dropdown-content">
+          <a href="#">Menú</a>
+          <a href="#">Configuración</a>
+          <a href="{% url 'logout' %}">Cerrar Sesión</a>
+        </div>
+      </li>
+    </ul>
+    </nav>
+
+    <div class="search-wrapper">
+        <h1>Búsqueda Avanzada</h1>
+        <form method="get" action="{% url 'advanced_search' %}">
+            <div class="search-box">
+                <input type="text" name="q" placeholder="Buscar por título o contenido..." autofocus>
+                <button type="submit">Buscar</button>
+            </div>
+            <div class="filter-box">
+                <fieldset>
+                    <legend>Etiquetas</legend>
+                    {% for tag in tags %}
+                        <label>
+                            <input type="checkbox" name="tags" value="{{ tag.name }}"> {{ tag.name }}
+                        </label>
+                    {% endfor %}
+                </fieldset>
+            </div>
+        </form>
+
+        <!-- Resultados de búsqueda -->
+        <div class="results">
+            {% if posts %}
+                <ul>
+                    {% for publicacion in post%}
+                    <a href="{% url 'post_details' publicacion.id %}" class="post-link">
+                      <h2>{{ publicacion.title }}</h2>
+                    </a>
+                  {% endfor %}
+                </ul>
+            {% else %}
+                <p>No se encontraron resultados para tu búsqueda.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

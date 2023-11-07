@@ -1,0 +1,98 @@
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar .logo .papu {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-list li {
+    display: inline;
+}
+
+.nav-list a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Estilo para el contenido principal */
+.content {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.hxd {
+    font-size: 24px;
+    color: #333;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007BFF;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Estilo para las etiquetas */
+.tags {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.tag:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para los resultados de búsqueda */
+.post-container {
+    padding: 15px;
+    background-color: #fff;
+    margin: 15px 0;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-container a {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-container a:hover {
+    text-decoration: underline;
+}

@@ -6,45 +6,69 @@ body {
 }
 
 /* Barra de navegación */
+/* Barra de navegación */
 .navbar {
   background-color: #333;
-  color: #fff;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 15px 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 28px;
 }
 
 .logo a {
-  font-size: 20px;
-  font-weight: bold;
   text-decoration: none;
-  color: #fff;
+  color: #f5f5f5; /* Color de enlace predeterminado */
+  transition: color 0.3s;
+}
+
+.logo a:hover {
+  color: #ff9900; /* Cambio de color al pasar el cursor */
 }
 
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 20px;
 }
 
-.nav-list li a {
+.nav-list li {
+  margin-right: 20px;
+}
+
+.nav-list li:last-child {
+  margin-right: 0;
+}
+
+.nav-list a {
   text-decoration: none;
-  color: #fff;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
+.nav-list a:hover {
+  color: #ff9900;
+}
+
+/* Menú desplegable de usuario */
 .user-dropdown {
   position: relative;
 }
 
 .user-dropdown-content {
+  display: none;
   position: absolute;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
   top: 100%;
   right: 0;
-  display: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-dropdown:hover .user-dropdown-content {
@@ -56,7 +80,13 @@ body {
   padding: 10px;
   text-decoration: none;
   color: #333;
+  transition: background-color 0.3s;
 }
+
+.user-dropdown-content a:hover {
+  background-color: #f5f5f5;
+}
+
 
 /* Detalles de la publicación */
 .post-details {

@@ -45,7 +45,7 @@ color: #f5f5f5; /* Color de enlace después de visitado */
 
 .nav-list a {
   text-decoration: none;
-  color: white;
+  color: rgb(31, 30, 30);
   font-weight: bold;
   transition: color 0.3s;
 }
