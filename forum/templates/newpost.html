@@ -1,10 +1,11 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+Publicaciones
+{% endblock title %}
+{% block content %}
+
   <link rel="stylesheet" href="{% static 'css/post.css' %}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -12,24 +13,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> <!-- Agrega CKEditor -->
   <title>Crear Publicación</title>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="logo"><a class="papu" href="{% url 'inicio' %}">Programación para todos</a></div>
-    <ul class="nav-list">
-      <li><a href="{% url 'foro' %}">Foro</a></li>
-      <li><a href="#">Consultas</a></li>
-      <li class="user-dropdown">
-        <a href="#">{{ request.user }}</a>
-        <div class="user-dropdown-content">
-          <a href="#">Menú</a>
-          <a href="#">Configuración</a>
-          <a href="{% url 'logout' %}">Cerrar Sesión</a>
-        </div>
-      </li>
-    </ul>
-  </nav>
-  
+
   <div class="post-form">
     <h2>Crear Nueva Publicación</h2>
     <form method="post" enctype="multipart/form-data">
@@ -114,5 +98,4 @@
       });
     });
   </script>
-</body>
-</html>
+{% endblock content %}

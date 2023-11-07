@@ -1,28 +1,13 @@
-{%load static%}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Publicaciones
+{% endblock title %}
+
+{% block content %}
   <link rel="stylesheet" href="{% static 'css/python.css' %}">
-  <title>Publicaciones</title>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="logo"><a href="{%url 'inicio'%}" class="papu">Programación para todos</a></div>
-    <ul class="nav-list">
-      <li><a href="{%url 'foro'%}">Foro</a></li>
-      <li><a href="#">Consultas</a></li>
-      <li class="user-dropdown">
-        <a href="#">{{request.user}}</a>
-        <div class="user-dropdown-content">
-          <a href="#">Menú</a>
-          <a href="#">Configuración</a>
-          <a href="{% url 'logout' %}">Cerrar Sesión</a> <!-- Agrega enlace a cerrar sesión -->
-        </div>
-      </li>
-    </ul>
-  </nav>
+
 
 
   <h1>Introducción a Python</h1>
@@ -152,5 +137,36 @@ except ZeroDivisionError:
 mi_coche = Coche("Toyota", "Corolla")</code></pre>
       </div>
   </div>
-</body>
-</html>
+
+
+  <script>
+    // Este script manejará el clic en los botones de dropdown para mostrar y ocultar el contenido
+    document.addEventListener('DOMContentLoaded', function () {
+      // Obtener todos los botones de dropdown
+      var dropdowns = document.querySelectorAll('.dropdown button');
+  
+      // Función para alternar el dropdown
+      function toggleDropdown(event) {
+        // Este es el contenido del dropdown
+        var content = this.nextElementSibling;
+  
+        // Verificar si el contenido está visible
+        if (content.style.display === 'block') {
+          content.style.display = 'none';
+        } else {
+          // Ocultar todos los dropdown-content antes de mostrar el actual
+          document.querySelectorAll('.dropdown .dropdown-content').forEach(function (element) {
+            element.style.display = 'none';
+          });
+          content.style.display = 'block';
+        }
+      }
+  
+      // Añadir el evento click a todos los botones de dropdown
+      dropdowns.forEach(function (dropdown) {
+        dropdown.addEventListener('click', toggleDropdown);
+      });
+    });
+  </script>
+  
+{% endblock content %}

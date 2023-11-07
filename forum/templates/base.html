@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>{% block title %}Programación para todos{% endblock title %}</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><a class="papu" href="{% url 'inicio' %}">Programación para todos</a></div>
+    <ul class="nav-list">
+      <li><a href="{% url 'foro' %}">Foro</a></li>
+      <li><a href="#">Consultas</a></li>
+      <li class="user-dropdown">
+        <a href="#">{{ request.user }}</a>
+        <div class="user-dropdown-content">
+          <a href="#">Menú</a>
+          <a href="#">Configuración</a>
+          <a href="{% url 'logout' %}">Cerrar Sesión</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <header class="header">
+    <div class="search-bar">
+      <form method="get" action="{% url 'search_results' %}">
+        <input type="text" name="query" placeholder="Buscar...">
+        <input type="submit" value="Buscar">
+    </form>
+    </div>
+  </header>
+
+  {% block content %}
+  <!-- Contenido reemplazable -->
+  {% endblock content %}
+</body>
+</html>

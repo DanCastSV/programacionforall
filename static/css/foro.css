@@ -1,145 +1,75 @@
-/* Resetear los estilos por defecto */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Estilos globales */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-}
-
-/* Barra de navegación */
-.navbar {
-  background-color: #333;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 40px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  
-}
-
-.logo a {
-  text-decoration: none;
-  color: #f5f5f5; /* Color de enlace predeterminado */
-  transition: color 0.3s;
-}
-
-.logo a:hover {
-  color: #ff9900; /* Cambio de color al pasar el cursor */
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-}
-
-.nav-list li {
-  margin-right: 20px;
-}
-
-.nav-list li:last-child {
-  margin-right: 0;
-}
-
-.nav-list a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.nav-list a:hover {
-  color: #ff9900;
-}
-
-/* Menú desplegable de usuario */
-.user-dropdown {
-  position: relative;
-}
-
-.user-dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.user-dropdown:hover .user-dropdown-content {
-  display: block;
-}
-
-.user-dropdown-content a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s;
-}
-
-.user-dropdown-content a:hover {
-  background-color: #f5f5f5;
-}
-
-/* Contenido principal */
+/* Estilos generales para la página */
 .content {
   text-align: center;
-  padding: 40px 0;
+  margin-top: 50px;
 }
 
 .hxd {
-  font-size: 32px;
+  font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
 }
 
 .button {
   display: inline-block;
-  background-color: #333;
-  color: white;
-  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.2rem;
   border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .button:hover {
-  background-color: #555;
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Lista de publicaciones */
+/* Estilos para la lista de publicaciones */
 .post-list {
-  padding: 40px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0;
 }
 
 .post-link {
   display: block;
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  margin-bottom: 10px;
   padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   text-decoration: none;
   color: #333;
-  transition: transform 0.2s;
-}
-
-.post-link:hover {
-  transform: translateY(-5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .post-link h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.post-link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .hxd {
+    font-size: 2rem;
+  }
+
+  .button {
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+
+  .post-link h2 {
+    font-size: 1.3rem;
+  }
 }

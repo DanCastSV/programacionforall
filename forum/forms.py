@@ -53,25 +53,20 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'slug', 'content', 'image', 'tags']
 
 
-class CustomPostForm(PostForm):
-    # se crea un nuevo formulario que extiende de la clase del modelo Post y agrega los campos a ser modificados en este
-    class Meta:
-        model = Post
-        fields = ['title', 'slug']
-        labels = {
-            'title': 'Título:',
-            'slug': 'Slug:',
-        }
-
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'placeholder': 'Escribe tu comentario aquí'}),
+        max_length=15000,  # Ajusta la longitud máxima según tus necesidades
+        label='Comentario'
+    )
+
     class Meta:
         model = Comment
         fields = ('content',)
+
     def clean_content(self):
         content = self.cleaned_data.get('content')
         if not content:
             raise forms.ValidationError('Este campo es requerido')
         return content
-    
-
 

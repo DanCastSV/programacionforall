@@ -1,0 +1,93 @@
+/* Estilos generales de la sección */
+.languages {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #ffffff; /* Fondo blanco para un look minimalista */
+  }
+  
+  .languages h2 {
+    font-size: 2rem; /* Un tamaño más moderado para el título */
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  /* Estilos para las tarjetas de los lenguajes */
+  .language-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrado para un diseño más limpio */
+    gap: 20px;
+  }
+  
+  .language-card {
+    background-color: #fff;
+    border: 1px solid #e1e1e1; /* Bordes sutiles */
+    border-radius: 10px;
+    width: calc(33.333% - 20px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .language-card:hover {
+    transform: translateY(-5px); /* Un sutil levantamiento al hacer hover */
+  }
+  
+  .language-card img {
+    width: 80px; /* Tamaño fijo para todas las imágenes */
+    height: 80px; /* Altura fija para mantener la uniformidad */
+    margin: 20px auto; /* Centrado y con margen */
+  }
+  
+  .language-card h3 {
+    font-size: 1.2rem; /* Tamaño de fuente reducido para los títulos de las tarjetas */
+    color: #333;
+    padding: 10px;
+  }
+  
+  /* ... otros estilos ... */
+
+.go-button {
+    display: inline-block; /* Cambiado a inline-block para ajustar al contenido */
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px; /* Padding generoso para un aspecto visualmente atractivo */
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px auto; /* Margen superior e inferior automático para centrar, izquierda y derecha para espacio */
+    transition: background-color 0.3s;
+  }
+  
+  .go-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* ... ajustes responsivos ... */
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .language-card {
+      width: calc(50% - 20px); /* Dos tarjetas por fila en tabletas */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .language-card {
+      width: calc(100% - 40px); /* Una tarjeta por fila en móviles */
+      margin-bottom: 30px; /* Más espacio entre tarjetas */
+    }
+  
+    .languages h2 {
+      font-size: 1.8rem; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .go-button {
+      padding: 8px 0; /* Padding vertical reducido */
+      width: 80px; /* Mantenemos el ancho fijo incluso en móviles */
+      font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    }
+  }
+  

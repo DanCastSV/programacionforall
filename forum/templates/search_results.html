@@ -1,29 +1,12 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/busqueda.css' %}">
-  <title>Publicaciones</title>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="logo"><a href="{% url 'inicio' %}" class="papu">Programación para todos</a></div>
-    <ul class="nav-list">
-      <li><a href="{% url 'foro' %}">Foro</a></li>
-      <li><a href="#">Consultas</a></li>
-      <li class="user-dropdown">
-        <a href="#">{{ request.user }}</a>
-        <div class="user-dropdown-content">
-          <a href="#">Menú</a>
-          <a href="#">Configuración</a>
-          <a href="{% url 'logout' %}">Cerrar Sesión</a>
-        </div>
-      </li>
-    </ul>
-  </nav>
 
+{% block title %}
+Publicaciones
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/busqueda.css' %}">
   <div class="content">
     <h1 class="hxd">Bienvenido</h1>
     <br>
@@ -48,5 +31,4 @@
     {% endif %}
   </div>
 
-</body>
-</html>
+  {% endblock content %}
