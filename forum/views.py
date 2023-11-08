@@ -14,27 +14,38 @@ from django.db.models import Q
 
 
 
-def login_view(request):
+def combined_login_register_view(request):
+    # Inicializa context al comienzo para que esté disponible en cualquier parte de la función
+    context = {
+        'login_form': {},  # Asumiendo que tienes un formulario o un diccionario vacío si no es necesario
+        'register_form': CustomUserCreationForm(),
+        'login_error': None,
+    }
+
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('inicio/')  
-        else:
-            # Mostrar un mensaje de error
-            pass
-    return render(request, 'login.html')
-def register_view(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        if 'login_submit' in request.POST:  # Botón de inicio de sesión fue presionado
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('inicio')  # Asegúrate de que 'inicio' sea el nombre de tu URL de destino
+            else:
+                context['login_error'] = "Usuario o contraseña incorrecta"
+        elif 'register_submit' in request.POST:  # Botón de registro fue presionado
+            register_form = CustomUserCreationForm(request.POST)
+            if register_form.is_valid():
+                register_form.save()
+                # Opcional: Inicia sesión al usuario después de registrarlo
+                new_user = authenticate(username=register_form.cleaned_data['username'],
+                                        password=register_form.cleaned_data['password1'])
+                login(request, new_user)
+                return redirect('inicio')
+            else:
+                context['register_form'] = register_form
+
+    return render(request, 'combined_login_register.html', context)
+
 
 
 def logout_view(request):

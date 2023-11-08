@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unificación de Registro y Login</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Programación para todos</div>
+  </nav>
+
+  <div class="container">
+    <!-- Contenedor de tabs para login y registro -->
+    <ul class="tab-list">
+      <li class="active"><a href="#login">Iniciar sesión</a></li>
+      <li><a href="#register">Registrarse</a></li>
+    </ul>
+
+    <div id="login" class="tab-content active">
+      <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <!-- Asegúrate de que la acción del formulario apunte a la URL correcta -->
+        <form class="user" method="post" action="">
+          {% csrf_token %}
+          <label for="username">Usuario:</label>
+          <input type="text" id="idusername" name="username" required>
+    
+          <label for="password">Contraseña:</label>
+          <input type="password" id="id_password" name="password" required>
+          <br>
+          <button type="submit" name="login_submit">Ingresar</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="register" class="tab-content">
+      <div class="content">
+        <h1>Registrar Usuario</h1>
+        <div class="container">
+          <!-- Asegúrate de que la acción del formulario apunte a la URL de la vista que maneja el registro -->
+          <form method="post" action="" id="registerForm">
+            {% csrf_token %}
+            {{ register_form.non_field_errors }}
+
+            <div class="form-group">
+              <label for="id_username">Nombre de Usuario</label>
+              {{ register_form.username }}
+            </div>
+
+            <div class="form-group">
+              <label for="password1">Contraseña</label>
+              <input type="password" id="password1" name="password1" required>
+              <span id="togglePassword" style="cursor: pointer;">🧐 Ver contraseña</span>
+              <ul id="passwordCriteria">
+                <p id="minChar">Al menos 8 caracteres</p>
+                <p id="upperCase">Al menos una letra mayúscula</p>
+                <p id="lowerCase">Al menos una letra minúscula</p>
+                <p id="number">Al menos un número</p>
+                <p id="specialChar">Al menos un carácter especial</p>
+              </ul>
+            </div>
+
+            <div class="form-group">
+              <label for="password2">Confirmar Contraseña</label>
+              <input type="password" id="password2" name="password2" required>
+            </div>
+
+            <button type="submit" name="register_submit" class="btn btn-outline-success">Crear Cuenta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Código para cambiar entre tabs
+    const tabs = document.querySelectorAll('.tab-list a');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        const activeTabAttr = e.target.getAttribute('href');
+        
+        // Desactivar todos los tabs y ocultar todo el contenido
+        tabs.forEach(t => t.parentNode.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        // Activar el tab actual y mostrar su contenido
+        tab.parentNode.classList.add('active');
+        document.querySelector(activeTabAttr).classList.add('active');
+      });
+    });
+
+    document.getElementById('togglePassword').addEventListener('click', function(e) {
+        var passwordInput = document.getElementById('password1');
+        var passwordIcon = document.getElementById('togglePassword');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.textContent = '🙈 Ocultar contraseña'; 
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.textContent = '🧐 Ver contraseña'; 
+        }
+    });
+    
+    document.getElementById('password1').onkeyup = function() {
+        // Valida la longitud de la contraseña
+        if(document.getElementById('password1').value.length >= 8) {
+            document.getElementById('minChar').style.color = 'green';
+        } else {
+            document.getElementById('minChar').style.color = 'red';
+        }
+    
+        // Valida la presencia de una letra mayúscula
+        if(document.getElementById('password1').value.match(/[A-Z]/)) {
+            document.getElementById('upperCase').style.color = 'green';
+        } else {
+            document.getElementById('upperCase').style.color = 'red';
+        }
+    
+        // Valida la presencia de una letra minúscula
+        if(document.getElementById('password1').value.match(/[a-z]/)) {
+            document.getElementById('lowerCase').style.color = 'green';
+        } else {
+            document.getElementById('lowerCase').style.color = 'red';
+        }
+    
+        // Valida la presencia de un número
+        if(document.getElementById('password1').value.match(/[0-9]/)) {
+            document.getElementById('number').style.color = 'green';
+        } else {
+            document.getElementById('number').style.color = 'red';
+        }
+    
+        // Valida la presencia de un carácter especial
+        if(document.getElementById('password1').value.match(/[\W_]/)) {
+            document.getElementById('specialChar').style.color = 'green';
+        } else {
+            document.getElementById('specialChar').style.color = 'red';
+        }
+    };
+    
+    document.getElementById('registerForm').onsubmit = function(e) {
+        var password1 = document.getElementById('password1').value;
+        var password2 = document.getElementById('password2').value;
+    
+        // Comprueba si las contraseñas coinciden y cumplen con los criterios antes de enviar el formulario
+        if(password1 !== password2) {
+            alert('Las contraseñas no coinciden.');
+            e.preventDefault();
+        } else if(password1.length < 8 || !password1.match(/[A-Z]/) || !password1.match(/[a-z]/) || !password1.match(/[0-9]/) || !password1.match(/[\W_]/)) {
+            alert('La contraseña no cumple con los criterios requeridos.');
+            e.preventDefault();
+        }
+    };
+  </script>
+</body>
+</html>
