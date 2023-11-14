@@ -6,9 +6,23 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', )
+        fields = ('username', 'email', 'password1', 'password2', )
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError("Este nombre de usuario ya está en uso.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este correo electrónico ya está registrado.")
+        return email
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -17,15 +31,13 @@ class CustomUserCreationForm(UserCreationForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Las contraseñas no coinciden")
         
-       
         if not any(char.isdigit() for char in password1):
             raise ValidationError("La contraseña debe contener al menos un dígito.")
         if not any(char.isalpha() for char in password1):
             raise ValidationError("La contraseña debe contener al menos una letra.")
-
         
         return password2
-
+    
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     slug = forms.SlugField(widget=forms.HiddenInput())

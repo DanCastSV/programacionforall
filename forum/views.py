@@ -15,28 +15,29 @@ from django.db.models import Q
 
 
 def combined_login_register_view(request):
-    # Inicializa context al comienzo para que esté disponible en cualquier parte de la función
     context = {
-        'login_form': {},  # Asumiendo que tienes un formulario o un diccionario vacío si no es necesario
+        'login_form': {},  # Si tienes un formulario de inicio de sesión, reemplázalo aquí
         'register_form': CustomUserCreationForm(),
         'login_error': None,
     }
 
     if request.method == 'POST':
-        if 'login_submit' in request.POST:  # Botón de inicio de sesión fue presionado
+        if 'login_submit' in request.POST:
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('inicio')  # Asegúrate de que 'inicio' sea el nombre de tu URL de destino
+                return redirect('inicio')
             else:
                 context['login_error'] = "Usuario o contraseña incorrecta"
-        elif 'register_submit' in request.POST:  # Botón de registro fue presionado
+
+        elif 'register_submit' in request.POST:
             register_form = CustomUserCreationForm(request.POST)
             if register_form.is_valid():
-                register_form.save()
-                # Opcional: Inicia sesión al usuario después de registrarlo
+                user = register_form.save(commit=False)
+                user.email = register_form.cleaned_data['email']
+                user.save()
                 new_user = authenticate(username=register_form.cleaned_data['username'],
                                         password=register_form.cleaned_data['password1'])
                 login(request, new_user)
@@ -45,7 +46,6 @@ def combined_login_register_view(request):
                 context['register_form'] = register_form
 
     return render(request, 'combined_login_register.html', context)
-
 
 
 def logout_view(request):
@@ -149,8 +149,7 @@ def like_post(request, post_id):
         return redirect('post_details', pk=post_id)
 
     except Post.DoesNotExist:
-        # Manejar el caso en el que no se encuentra la publicación
-        # Puedes redirigir a una página de error o realizar alguna otra acción adecuada
+        
         pass
     
 @login_required
